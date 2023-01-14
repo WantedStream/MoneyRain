@@ -1,0 +1,29 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "map.tmx": {
+            "scale": 1.2508333333333332,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 639.5736175882744,
+                "y": 479.68021319120584
+            }
+        }
+    },
+    "last.imagePath": "C:/Users/USER/Documents/GitHub/MoneyRain/MoneyRainProj/assets/misc/mapprojects",
+    "map.height": 30,
+    "map.lastUsedFormat": "tmx",
+    "map.width": 40,
+    "openFiles": [
+    ],
+    "project": "untitled.tiled-project",
+    "recentFiles": [
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}
