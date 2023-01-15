@@ -45,8 +45,9 @@ public class Camera<CamType extends com.badlogic.gdx.graphics.Camera> implements
     @Override
     public void render() {
         for (IRenderer renderer: this.renderers){
-            renderer.render(this);
+            renderer.render();
         }
+        orthogonalTiledMapRenderer.render();
     }
 
     @Override
@@ -54,7 +55,8 @@ public class Camera<CamType extends com.badlogic.gdx.graphics.Camera> implements
         for (IRenderer renderer: this.renderers){
             renderer.dispose();
         }
-
+        orthogonalTiledMapRenderer.dispose();
+        tiledMap.dispose();
     }
 
     @Override
