@@ -55,7 +55,7 @@ public class Player implements ICreature {
     @Override
     public void onCollision(IPhysical physical) {
         if(physical instanceof ICoin){
-            this.score+=((ICoin) physical).getScore();
+            updateMoneyRes((ICoin) physical);
         }
     }
 
@@ -77,7 +77,12 @@ public class Player implements ICreature {
     public void update(){
 
     }
-
+    private void updateMoneyRes(ICoin coin){
+        setScore(coin.getScore());
+    }
+    private void setScore(int score){
+        this.score+=score;
+    }
     public int getScore() {
         return this.score;
     }

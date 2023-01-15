@@ -16,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.mygdx.game.bodies.Gold;
+import com.mygdx.game.bodies.MoneyRain;
 import com.mygdx.game.bodies.Platform;
 import com.mygdx.game.bodies.Player;
 import com.mygdx.game.handlers.GameContactListener;
@@ -46,6 +47,7 @@ public class PlayState extends GameState{
     private FreeTypeFontGenerator generator;
     private List<ICoin> fallingMoney;
     private String hudstr;
+    private MoneyRain moneyRain;
     public Queue<ICoin> getCoinQueue(){
         return this.moneyQueue;
     }
@@ -57,7 +59,7 @@ public class PlayState extends GameState{
         this.removalArray=new DelayedRemovalArray<>();
 
         appplication.results=new Hashtable<ICreature, Integer>();
-        world = new World(new Vector2(0,-9.8f),false);
+        world = new World(new Vector2(0,0),false);
 
         box2DDebugRenderer=new Box2DDebugRenderer();
 
@@ -70,8 +72,7 @@ public class PlayState extends GameState{
         TiltedObjectUtil.parseTileObjectLayer(world, tiledMap.getLayers().get("collider-layer").getObjects());
         world.setContactListener(new GameContactListener());
         Platform platform = new Platform(this.world,20.5f,2.5f,17,1,true);
-
-
+        this.moneyRain=new MoneyRain(world,this);
         createFont();
     }
     @Override
@@ -80,23 +81,12 @@ public class PlayState extends GameState{
         world.step(1f/60,6,2);
         inputUpdate(delta);
        cameraUpdate(delta);
-        coinUpdate(delta);
+        this.moneyRain.update(delta);
         orthogonalTiledMapRenderer.setView(camera);
         batch.setProjectionMatrix(camera.combined);
     }
 
-    private void coinUpdate(float delta) {
 
-        iterCoins();
-        acc+=delta;
-        if(acc>=3){
-            addCoinToWorld();
-            acc=0;
-        }
-
-
-
-    }
 
     @Override
     public void render() {
@@ -148,38 +138,13 @@ public class PlayState extends GameState{
         }
     }
 
-
-
     public void drawHud(){
         font12.setColor(Color.GOLDENROD);
         font12.draw(appplication.getBatch(),this.hudstr+player.getScore(),0,0 );
         font12.setColor(Color.BLACK);
         font12.draw(appplication.getBatch(),"press enter to try again!",0,this.hudstr.length()*-5 );
     }
-    public void addCoinToWorld(){
 
-        int rndnumX=new Random().nextInt(13,19);
-        int rndnumY=19;
-        if(this.moneyQueue.isEmpty())
-            for (int i=0;i<5;i++)
-           this.moneyQueue.add((ICoin) new Gold(this.world,this,new Random().nextInt(13,19),rndnumY,1,1));
-
-            ICoin money = this.moneyQueue.poll();
-            money.getBody().setTransform(rndnumX,rndnumY,money.getBody().getAngle());
-            this.fallingMoney.add(money);
-
-
-    }
-    public void iterCoins(){
-        ListIterator<ICoin> iterator = this.fallingMoney.listIterator();
-        if(!this.fallingMoney.isEmpty())
-        System.out.print(Arrays.toString(this.fallingMoney.toArray()));
-        while(iterator.hasNext()) {
-            ICoin c = iterator.next();
-            iterator.remove();
-            c.update();
-        }
-    }
     private void createFont(){
         generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/VCR_OSD_MONO_1.001.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();

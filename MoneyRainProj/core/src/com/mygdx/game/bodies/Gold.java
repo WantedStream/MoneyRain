@@ -51,24 +51,22 @@ public class Gold implements ICoin {
 
     @Override
     public void onCollision(IPhysical physical) {
-      //  if(physical!=null){
-        //    if(physical.getBody().getUserData().equals("Ground"))
-
-        //}
         if(physical instanceof Platform)
             died=true;
+        if(physical instanceof Player){
+            died=true;
+        }
     }
 
     @Override
     public void update(){
-        System.out.println(this);
         if(died){
             died=false;
-            int rndnumX=new Random().nextInt(13,19);
+            int rndnumX=new Random().nextInt(13,25);
             int rndnumY=19;
             this.body.setTransform(rndnumX,rndnumY,this.body.getAngle());
-
         }
+        this.body.setLinearVelocity(0,-9.8f);
     }
     @Override
     public Body getBody() {
