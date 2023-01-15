@@ -2,6 +2,8 @@ package com.mygdx.game.bodies;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.interfaces.ICoin;
 import com.mygdx.game.interfaces.ICreature;
@@ -73,7 +75,11 @@ public class Player implements ICreature {
 
         }
     }
-
+    public void render(Batch batch, Texture playerTexture){
+        float width=this.width*PIXLE_PER_METER*2;
+        float height =this.height*PIXLE_PER_METER*2;
+        batch.draw(playerTexture,this.body.getPosition().x*PIXLE_PER_METER-(width/2),this.body.getPosition().y*PIXLE_PER_METER-(height/2),width,height);
+    }
     public void update(){
 
     }

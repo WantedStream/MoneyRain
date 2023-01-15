@@ -3,13 +3,21 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "map.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
+        "Spritesheet_UI_Flat.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "map.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
             "scale": 1.2508333333333332,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
                 "x": 639.5736175882744,
                 "y": 479.68021319120584
@@ -21,9 +29,13 @@
     "map.lastUsedFormat": "tmx",
     "map.width": 40,
     "openFiles": [
+        "Spritesheet_UI_Flat.tsx",
+        "map.tmx"
     ],
     "project": "untitled.tiled-project",
     "recentFiles": [
+        "Spritesheet_UI_Flat.tsx",
+        "map.tmx"
     ],
     "tileset.lastUsedFormat": "tsx"
 }
