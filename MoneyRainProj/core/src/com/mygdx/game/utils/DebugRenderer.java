@@ -11,9 +11,8 @@ public class DebugRenderer implements IRenderer {
     private Box2DDebugRenderer renderer=new Box2DDebugRenderer();
     private World world;
     private Camera camera;
-    DebugRenderer(World world, Camera cam){
+    public DebugRenderer(World world){
         this.world=world;
-        this.camera=cam;
     }
     @Override
     public void resize(int width, int height) {
@@ -26,7 +25,7 @@ public class DebugRenderer implements IRenderer {
     }
 
     @Override
-    public void render() {
+    public void render(Camera cam) {
         com.badlogic.gdx.graphics.Camera camera1 = this.camera.getWorldCamera();
         this.renderer.render( this.world,camera1.combined.scl(PIXLE_PER_METER));
     }

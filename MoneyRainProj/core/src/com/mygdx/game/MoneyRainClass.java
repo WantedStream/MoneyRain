@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.game.handlers.Camera;
 import com.mygdx.game.interfaces.ICreature;
 import com.mygdx.game.managers.GameStateManager;
 
@@ -18,7 +19,7 @@ public class MoneyRainClass extends ApplicationAdapter {
 	public static final int V_WIDTH=720;
 	public static final int v_HEIGHT =480;
 	public static final String TITLE="EndlessGlory";
-	private OrthographicCamera camera;
+	private Camera camera;
 
 	private SpriteBatch batch;
 	private GameStateManager gameStateManager;
@@ -29,7 +30,7 @@ public class MoneyRainClass extends ApplicationAdapter {
 		int width = Gdx.graphics.getWidth();
 		int height= Gdx.graphics.getHeight();
 		this.batch =  new SpriteBatch();
-		this.camera= new OrthographicCamera();
+		this.camera= new Camera<OrthographicCamera>();
 		gameStateManager=new GameStateManager(this);//must be after batch and camera declarations
 		resize(width,height);
 	}

@@ -3,6 +3,7 @@ package com.mygdx.game.states;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.MoneyRainClass;
+import com.mygdx.game.handlers.Camera;
 import com.mygdx.game.managers.GameStateManager;
 
 public abstract class GameState {
@@ -10,7 +11,7 @@ public abstract class GameState {
     protected MoneyRainClass appplication;
 
     protected SpriteBatch batch;
-    protected OrthographicCamera camera;
+    protected Camera camera;
 
     protected GameState(GameStateManager gameStateManager){
         this.gameStateManager=gameStateManager;

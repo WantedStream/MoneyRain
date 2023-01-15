@@ -1,9 +1,11 @@
 package com.mygdx.game.utils;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.handlers.Camera;
 import com.mygdx.game.interfaces.IRenderer;
 
 public class MapRenderer implements IRenderer {
@@ -26,12 +28,16 @@ public class MapRenderer implements IRenderer {
     }
 
     @Override
-    public void render() {
-        orthogonalTiledMapRenderer.setView(camera);
+    public void render(Camera cam) {
+
+        orthogonalTiledMapRenderer.setView((OrthographicCamera) cam.getWorldCamera());
+        orthogonalTiledMapRenderer.render();
+
     }
 
     @Override
     public void dispose() {
-
+        orthogonalTiledMapRenderer.dispose();
+        tiledMap.dispose();
     }
 }

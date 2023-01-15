@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.mygdx.game.bodies.Gold;
 import com.mygdx.game.bodies.Platform;
 import com.mygdx.game.bodies.Player;
+import com.mygdx.game.handlers.Camera;
 import com.mygdx.game.handlers.GameContactListener;
 import com.mygdx.game.interfaces.ICoin;
 import com.mygdx.game.interfaces.ICreature;
@@ -36,7 +37,7 @@ public class PlayState extends GameState{
     private Player player;
 
     private boolean finished=false;
-
+    private Camera cam;
 
     public PlayState(GameStateManager gameStateManager){
          super(gameStateManager);
@@ -51,11 +52,12 @@ public class PlayState extends GameState{
         world.setContactListener(new GameContactListener());
         Platform platform = new Platform(this.world,20.5f,2.5f,17,1,true);
 
-
+        this.camera=new Camera<>();
     }
     @Override
     public void update(float delta) {
         player.update();
+        camera.update(delta);
         world.step(1f/60,6,2);
     }
 
@@ -66,6 +68,7 @@ public class PlayState extends GameState{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
+        camera.render();
         batch.end();
 
     }
