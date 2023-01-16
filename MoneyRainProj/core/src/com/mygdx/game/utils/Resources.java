@@ -8,6 +8,8 @@ public class Resources {
     public static class SOUNDS{
         public static Sound GOLD_SOUND = Gdx.audio.newSound(Gdx.files.internal("sounds/gold.mp3"));
         public static Sound TRASH_SOUND = Gdx.audio.newSound(Gdx.files.internal("sounds/trash.mp3"));
+        public static Sound GAME_OVER = Gdx.audio.newSound(Gdx.files.internal("sounds/gameover.mp3"));
+        public static Sound GAME_START = Gdx.audio.newSound(Gdx.files.internal("sounds/GameStart.mp3"));
 
     }
     public static class TEXTURES{

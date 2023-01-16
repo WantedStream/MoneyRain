@@ -17,6 +17,8 @@ import com.mygdx.game.managers.GameStateManager;
 
 import java.util.Map;
 
+import static com.mygdx.game.utils.Resources.SOUNDS.GAME_OVER;
+
 public class GameOverState extends GameState {
     float acc=0f;
     private Texture texture;
@@ -29,6 +31,7 @@ public class GameOverState extends GameState {
 
     public GameOverState(GameStateManager gameStateManager){
         super(gameStateManager);
+        GAME_OVER.play();
         this.world=new World(new Vector2(0,0),false);
         this.app=gameStateManager.getApp();
 

@@ -40,7 +40,7 @@ public class Gold extends CoinTemplate {
 
         super.defaultOnCollision(physical);
         if(physical instanceof Player)
-            GOLD_SOUND.play(1.0f);
+            GOLD_SOUND.play();
     }
 
     @Override

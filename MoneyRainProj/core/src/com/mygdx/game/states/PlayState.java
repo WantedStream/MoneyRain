@@ -28,6 +28,7 @@ import com.mygdx.game.utils.TiltedObjectUtil;
 import java.util.*;
 
 import static com.mygdx.game.utils.Constants.PIXLE_PER_METER;
+import static com.mygdx.game.utils.Resources.SOUNDS.GAME_START;
 
 public class PlayState extends GameState{
 
@@ -71,6 +72,8 @@ public class PlayState extends GameState{
         Platform platform = new Platform(this.world,20.5f,2.5f,17,1,true);
         this.moneyRain=new MoneyRain(world,this);
         createFont();
+
+        GAME_START.play();
     }
     @Override
     public void update(float delta) {
