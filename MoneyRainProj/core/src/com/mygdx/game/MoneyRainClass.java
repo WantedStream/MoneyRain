@@ -22,10 +22,8 @@ public class MoneyRainClass extends ApplicationAdapter {
 
 	private SpriteBatch batch;
 	private GameStateManager gameStateManager;
-	public Hashtable<ICreature, Integer> results;
 	@Override
 	public void create () {
-		results=new Hashtable<ICreature, Integer>();
 		int width = Gdx.graphics.getWidth();
 		int height= Gdx.graphics.getHeight();
 		this.batch =  new SpriteBatch();

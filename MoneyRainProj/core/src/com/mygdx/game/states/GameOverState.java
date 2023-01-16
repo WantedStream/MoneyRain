@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.MoneyRainClass;
+import com.mygdx.game.interfaces.CoinTemplate;
 import com.mygdx.game.interfaces.ICreature;
 import com.mygdx.game.managers.GameStateManager;
 
@@ -24,6 +25,7 @@ public class GameOverState extends GameState {
     private BitmapFont font12;
     private FreeTypeFontGenerator generator;
     private String resultstr;
+    private int resstrLineCount=0;
 
     public GameOverState(GameStateManager gameStateManager){
         super(gameStateManager);
@@ -38,11 +40,11 @@ public class GameOverState extends GameState {
 
         this.resultstr="results:";
 
-        for (Map.Entry<ICreature, Integer> entry : app.results.entrySet()) {
-            ICreature key = entry.getKey();
+        for (Map.Entry<String, Integer> entry : gameStateManager.getResults().entrySet()) {
+            String key = entry.getKey();
             Integer value = entry.getValue();
-
-            this.resultstr+= "\n"+( key + " : " + value);
+            this.resultstr+= "\n"+( key+ " : " + value);
+            this.resstrLineCount++;
         }
     }
     @Override
@@ -62,7 +64,7 @@ public class GameOverState extends GameState {
         font12.setColor(Color.GOLDENROD);
         font12.draw(this.app.getBatch(),this.resultstr,0,0 );
         font12.setColor(Color.BLACK);
-        font12.draw(this.app.getBatch(),"press enter to try again!",0,this.resultstr.length()*-5 );
+        font12.draw(this.app.getBatch(),"press enter to try again!",0,-(this.resstrLineCount+1)*50);
         this.app.getBatch().end();
     }
 

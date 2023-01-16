@@ -1,17 +1,13 @@
 package com.mygdx.game.bodies;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.physics.box2d.*;
-import com.mygdx.game.interfaces.ICoin;
+import com.mygdx.game.interfaces.CoinTemplate;
 import com.mygdx.game.interfaces.ICreature;
 import com.mygdx.game.interfaces.IPhysical;
 import com.mygdx.game.managers.GameStateManager;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
-import static com.mygdx.game.utils.Constants.GROUP_PLAYER;
 import static com.mygdx.game.utils.Constants.PIXLE_PER_METER;
 
 public class Player implements ICreature {
@@ -38,6 +34,8 @@ public class Player implements ICreature {
         shape.dispose();
         this.gameStateManager=gameStateManager;
         this.world=world;
+
+        this.gameStateManager.resetResults();
     }
     public Body getBody(){
         return this.body;
@@ -54,8 +52,8 @@ public class Player implements ICreature {
 
     @Override
     public void onCollision(IPhysical physical) {
-        if(physical instanceof ICoin){
-            updateMoneyRes((ICoin) physical);
+        if(physical instanceof CoinTemplate){
+            updateMoneyRes((CoinTemplate) physical);
         }
     }
 
@@ -77,8 +75,10 @@ public class Player implements ICreature {
     public void update(){
 
     }
-    private void updateMoneyRes(ICoin coin){
+    private void updateMoneyRes(CoinTemplate coin){
         setScore(coin.getScore());
+        this.gameStateManager.updateResults(coin.getClass().getSimpleName());
+
     }
     private void setScore(int score){
         this.score+=score;

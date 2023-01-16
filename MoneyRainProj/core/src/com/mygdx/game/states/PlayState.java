@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -15,12 +16,11 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
-import com.mygdx.game.bodies.Gold;
 import com.mygdx.game.bodies.MoneyRain;
 import com.mygdx.game.bodies.Platform;
 import com.mygdx.game.bodies.Player;
 import com.mygdx.game.handlers.GameContactListener;
-import com.mygdx.game.interfaces.ICoin;
+import com.mygdx.game.interfaces.CoinTemplate;
 import com.mygdx.game.interfaces.ICreature;
 import com.mygdx.game.managers.GameStateManager;
 import com.mygdx.game.utils.TiltedObjectUtil;
@@ -31,7 +31,6 @@ import static com.mygdx.game.utils.Constants.PIXLE_PER_METER;
 
 public class PlayState extends GameState{
 
-    public  DelayedRemovalArray<Object> removalArray;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private TiledMap tiledMap;
     private Texture playerTexture;
@@ -42,23 +41,21 @@ public class PlayState extends GameState{
     private Player player;
 
     private boolean finished=false;
-    private Queue<ICoin> moneyQueue;
+    private Queue<CoinTemplate> moneyQueue;
     private BitmapFont font12;
     private FreeTypeFontGenerator generator;
-    private List<ICoin> fallingMoney;
+    private List<CoinTemplate> fallingMoney;
     private String hudstr;
     private MoneyRain moneyRain;
-    public Queue<ICoin> getCoinQueue(){
+    public Queue<CoinTemplate> getCoinQueue(){
         return this.moneyQueue;
     }
     public PlayState(GameStateManager gameStateManager){
          super(gameStateManager);
          this.acc=0;
-         this.moneyQueue= new LinkedList<ICoin>();
-            this.fallingMoney=new LinkedList<ICoin>();
-        this.removalArray=new DelayedRemovalArray<>();
+         this.moneyQueue= new LinkedList<CoinTemplate>();
+            this.fallingMoney=new LinkedList<CoinTemplate>();
 
-        appplication.results=new Hashtable<ICreature, Integer>();
         world = new World(new Vector2(0,0),false);
 
         box2DDebugRenderer=new Box2DDebugRenderer();
@@ -98,6 +95,7 @@ public class PlayState extends GameState{
         batch.begin();
         batch.draw(playerTexture,player.getBody().getPosition().x*PIXLE_PER_METER-(width/2),player.getBody().getPosition().y*PIXLE_PER_METER-(height/2),width,height);
         drawHud();
+        this.moneyRain.draw(batch);
         batch.end();
 
         orthogonalTiledMapRenderer.render();

@@ -1,8 +1,8 @@
 package com.mygdx.game.bodies;
 
-import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.interfaces.ICoin;
+import com.mygdx.game.interfaces.CoinTemplate;
 import com.mygdx.game.states.GameState;
 import com.mygdx.game.utils.SunchronizedQueue;
 
@@ -14,20 +14,20 @@ import java.util.Random;
 public class MoneyRain {
     private final static float time=0.5f;
     private float acc=time;
-    private SunchronizedQueue<ICoin> moneyQueue;
-    private List<ICoin> fallingMoney;
+    private SunchronizedQueue<CoinTemplate> moneyQueue;
+    private List<CoinTemplate> fallingMoney;
     private World world;
     public MoneyRain(World world, GameState state){
-        this.moneyQueue=new SunchronizedQueue<ICoin>();
-        this.fallingMoney=new ArrayList<ICoin>();
+        this.moneyQueue=new SunchronizedQueue<CoinTemplate>();
+        this.fallingMoney=new ArrayList<CoinTemplate>();
         this.world=world;
         int y=1;
 
-           this.moneyQueue.add((ICoin) new Gold(this.world,state,0,50*y,1,1));
-        this.moneyQueue.add((ICoin) new Gold(this.world,state,0,50*y,1,1));
-        this.moneyQueue.add((ICoin) new Gold(this.world,state,0,50*y,1,1));
-        this.moneyQueue.add((ICoin) new Gold(this.world,state,0,50*y,1,1));
-        this.moneyQueue.add((ICoin) new Gold(this.world,state,0,50*y,1,1));
+           this.moneyQueue.add((CoinTemplate) new Gold(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Trash(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Gold(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Trash(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Gold(this.world,0,50*y,1,1));
 
     }
     public void addCoinToWorld(){
@@ -35,14 +35,14 @@ public class MoneyRain {
 
         int rndnumX=new Random().nextInt(13,19);
         int rndnumY=19;
-        ICoin money = (ICoin) this.moneyQueue.poll();
+        CoinTemplate money = (CoinTemplate) this.moneyQueue.poll();
         money.getBody().setTransform(rndnumX,rndnumY,money.getBody().getAngle());
         this.fallingMoney.add(money);
     }
     public void iterCoins(){
-        ListIterator<ICoin> iterator = this.fallingMoney.listIterator();
+        ListIterator<CoinTemplate> iterator = this.fallingMoney.listIterator();
         while(iterator.hasNext()) {
-            ICoin c = iterator.next();
+            CoinTemplate c = iterator.next();
             c.update();
         }
     }
@@ -55,5 +55,13 @@ public class MoneyRain {
         }
 
         iterCoins();
+    }
+
+    public void draw(SpriteBatch batch) {
+        ListIterator<CoinTemplate> iterator = this.fallingMoney.listIterator();
+        while(iterator.hasNext()) {
+            CoinTemplate c = iterator.next();
+            c.draw(batch);
+        }
     }
 }

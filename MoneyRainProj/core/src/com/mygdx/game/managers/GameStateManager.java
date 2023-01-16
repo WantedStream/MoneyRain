@@ -1,16 +1,20 @@
 package com.mygdx.game.managers;
 
 import com.mygdx.game.MoneyRainClass;
+import com.mygdx.game.interfaces.CoinTemplate;
 import com.mygdx.game.states.GameOverState;
 import com.mygdx.game.states.GameState;
 import com.mygdx.game.states.PlayState;
 import com.mygdx.game.states.SplashState;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 public class GameStateManager {
     private final MoneyRainClass application;
     private Stack<GameState> states;
+    private Map<String,Integer> results;
     public enum State{
         SPLASH,
         PLAY,
@@ -56,6 +60,15 @@ public class GameStateManager {
            case GAMEOVER: return new GameOverState(this);
        }
            return null;
+    }
+    public Map<String,Integer> getResults(){
+        return  this.results;
+    }
+    public void updateResults(String c){
+            this.results.put(c,results.getOrDefault(c, 0)+1);
+    }
+    public void resetResults(){
+        this.results=new HashMap<String,Integer>();
     }
     public MoneyRainClass getApp(){
         return this.application();
