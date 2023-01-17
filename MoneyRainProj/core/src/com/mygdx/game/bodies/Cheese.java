@@ -8,9 +8,7 @@ import com.mygdx.game.interfaces.IPhysical;
 
 import static com.mygdx.game.utils.Constants.PIXLE_PER_METER;
 import static com.mygdx.game.utils.Resources.SOUNDS.CHEESE_SOUND;
-import static com.mygdx.game.utils.Resources.SOUNDS.TRASH_SOUND;
 import static com.mygdx.game.utils.Resources.TEXTURES.CHEESE_TEXTURE;
-import static com.mygdx.game.utils.Resources.TEXTURES.TRASH_TEXTURE;
 
 public class Cheese extends CoinTemplate {
     private short score;
@@ -18,6 +16,7 @@ public class Cheese extends CoinTemplate {
     private float width;
     private float height;
     private float damage;
+    private float speed;
     public Cheese(World world, float x, float y, float w, float h){
         super(CHEESE_TEXTURE);
         this.body=makeBody(x,y,world);
@@ -44,12 +43,17 @@ public class Cheese extends CoinTemplate {
     @Override
     public void update(){
         super.defaultUpdate(this.body);
-        this.body.setLinearVelocity(0,-9.8f);
+        this.body.setLinearVelocity(0,this.speed);
     }
 
     @Override
     public void draw(Batch batch) {
         super.defaultCoinDrawer(batch,this.body,this.width,this.height);
+    }
+
+    @Override
+    public void setSpeed(float speed) {
+        this.speed=speed;
     }
 
     @Override

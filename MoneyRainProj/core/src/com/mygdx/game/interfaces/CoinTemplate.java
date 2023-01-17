@@ -25,12 +25,10 @@ public abstract class CoinTemplate implements IPhysical {
     public abstract short getScore();
     public abstract void update();
      protected void defaultUpdate(Body body){
-         if(died){
-             died=false;
-             int rndnumX=new Random().nextInt(13,25);
-             int rndnumY=19;
-             body.setTransform(rndnumX,rndnumY,body.getAngle());
-         }
+
+     }
+     public Texture getTexture(){
+         return this.texture;
      }
      public abstract void draw(Batch batch);
      protected void defaultCoinDrawer(Batch batch,Body body,float width,float height){
@@ -58,4 +56,12 @@ public abstract class CoinTemplate implements IPhysical {
              died=true;
          }
      }
+     public boolean isDead(){
+        return this.died;
+     }
+     public void setAlive(){
+         this.died=false;
+     }
+
+    public abstract void setSpeed(float speed);
 }

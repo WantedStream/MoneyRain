@@ -18,6 +18,7 @@ public class Heart extends CoinTemplate {
     private float width;
     private float height;
     private float damage;
+    private float speed;
     public Heart(World world, float x, float y, float w, float h){
         super(HEART_TEXTURE);
         this.body=makeBody(x,y,world);
@@ -44,12 +45,17 @@ public class Heart extends CoinTemplate {
     @Override
     public void update(){
         super.defaultUpdate(this.body);
-        this.body.setLinearVelocity(0,-9.8f);
+        this.body.setLinearVelocity(0,this.speed);
     }
 
     @Override
     public void draw(Batch batch) {
         super.defaultCoinDrawer(batch,this.body,this.width,this.height);
+    }
+
+    @Override
+    public void setSpeed(float speed) {
+        this.speed=speed;
     }
 
     @Override

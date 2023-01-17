@@ -18,6 +18,7 @@ public class Trash extends CoinTemplate {
     private float width;
     private float height;
     private float damage;
+    private float speed;
     public Trash(World world, float x, float y, float w, float h){
         super(TRASH_TEXTURE);
         this.body=makeBody(x,y,world);
@@ -44,7 +45,7 @@ public class Trash extends CoinTemplate {
     @Override
     public void update(){
         super.defaultUpdate(this.body);
-        this.body.setLinearVelocity(0,-9.8f);
+        this.body.setLinearVelocity(0,this.speed);
     }
 
     @Override
@@ -53,7 +54,14 @@ public class Trash extends CoinTemplate {
     }
 
     @Override
+    public void setSpeed(float speed) {
+        this.speed=speed;
+    }
+
+    @Override
     public Body getBody() {
         return this.body;
     }
+
+
 }

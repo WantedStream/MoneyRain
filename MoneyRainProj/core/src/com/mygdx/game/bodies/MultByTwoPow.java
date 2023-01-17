@@ -19,6 +19,7 @@ public class MultByTwoPow extends CoinTemplate implements PowerUp {
     private float height;
     private float time;
     private int mult=2;
+    private float speed;
     public MultByTwoPow(World world, float x, float y, float w, float h){
         super(X2_TEXTURE);
         this.body=makeBody(x,y,world);
@@ -44,12 +45,17 @@ public class MultByTwoPow extends CoinTemplate implements PowerUp {
     @Override
     public void update(){
         super.defaultUpdate(this.body);
-        this.body.setLinearVelocity(0,-9.8f);
+        this.body.setLinearVelocity(0,this.speed);
     }
 
     @Override
     public void draw(Batch batch) {
         super.defaultCoinDrawer(batch,this.body,this.width,this.height);
+    }
+
+    @Override
+    public void setSpeed(float speed) {
+        this.speed=speed;
     }
 
     @Override

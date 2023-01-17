@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -27,15 +28,15 @@ import com.mygdx.game.utils.TiltedObjectUtil;
 
 import java.util.*;
 
-import static com.mygdx.game.utils.Constants.PIXLE_PER_METER;
+import static com.mygdx.game.utils.Constants.*;
 import static com.mygdx.game.utils.Resources.SOUNDS.GAME_START;
 import static com.mygdx.game.utils.Resources.SOUNDS.POWERUP_SOUND;
+import static com.mygdx.game.utils.Resources.TEXTURES.PLAYER_TEXTURE;
 
 public class PlayState extends GameState{
 
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private TiledMap tiledMap;
-    private Texture playerTexture;
     public World world;
     private Box2DDebugRenderer box2DDebugRenderer;
     private float  acc;
@@ -56,13 +57,11 @@ public class PlayState extends GameState{
          this.acc=0;
          this.moneyQueue= new LinkedList<CoinTemplate>();
             this.fallingMoney=new LinkedList<CoinTemplate>();
-
         world = new World(new Vector2(0,0),false);
 
         box2DDebugRenderer=new Box2DDebugRenderer();
 
         player = new Player(world,"Player",20,2.6f,gameStateManager);
-        playerTexture=new Texture("player/Doom_Slayer.png");
 
         tiledMap=new TmxMapLoader().load("misc/map.tmx");
         orthogonalTiledMapRenderer= new OrthogonalTiledMapRenderer(tiledMap);
@@ -96,9 +95,10 @@ public class PlayState extends GameState{
         float width=player.getWidth()*PIXLE_PER_METER*2;
         float height = player.getHeight()*PIXLE_PER_METER*2;
         batch.begin();
-        batch.draw(playerTexture,player.getBody().getPosition().x*PIXLE_PER_METER-(width/2),player.getBody().getPosition().y*PIXLE_PER_METER-(height/2),width,height);
+        batch.draw(PLAYER_TEXTURE,player.getBody().getPosition().x*PIXLE_PER_METER-(width/2),player.getBody().getPosition().y*PIXLE_PER_METER-(height/2),width,height);
         drawHud();
         this.moneyRain.draw(batch);
+        player.render(batch);
         batch.end();
 
         orthogonalTiledMapRenderer.render();
@@ -117,8 +117,8 @@ public class PlayState extends GameState{
 
            // position.x=camera.position.x+( player.getBody().getPosition().x*PIXLE_PER_METER-camera.position.x)*1f;
           //  position.y= camera.position.y+( player.getBody().getPosition().y*PIXLE_PER_METER-camera.position.y)*1f;
-        position.x=700;
-        position.y=400;
+        position.x=CAMERA_POS_X;
+        position.y=CAMERA_POS_Y;
             camera.position.set(position);
 
 
@@ -144,9 +144,9 @@ public class PlayState extends GameState{
     public void drawHud(){
         String hudstr="score:"+player.getScore();
         font12.setColor(Color.GOLDENROD);
-        font12.draw(appplication.getBatch(),hudstr,550,600 );
+        font12.draw(appplication.getBatch(),hudstr,CAMERA_POS_X-150,CAMERA_POS_Y+200 );
         font12.setColor(Color.CYAN);
-        font12.draw(appplication.getBatch(),player.getScoreMult(),790+hudstr.length()*2,600 );
+        font12.draw(appplication.getBatch(),player.getScoreMult(),CAMERA_POS_X+90+hudstr.length()*2,CAMERA_POS_Y+200 );
         font12.setColor(Color.RED);
         font12.draw(appplication.getBatch(),"lifes:"+player.getHealth()/1,550,550 );
 

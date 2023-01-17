@@ -1,5 +1,7 @@
 package com.mygdx.game.bodies;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.interfaces.CoinTemplate;
 import com.mygdx.game.interfaces.ICreature;
@@ -10,9 +12,10 @@ import com.mygdx.game.utils.SunchronizedQueue;
 
 import java.util.Map;
 
-import static com.mygdx.game.utils.Constants.PIXLE_PER_METER;
+import static com.mygdx.game.utils.Constants.*;
 import static com.mygdx.game.utils.Resources.SOUNDS.NOPOWERUPS_SOUND;
 import static com.mygdx.game.utils.Resources.SOUNDS.POWERUP_SOUND;
+import static com.mygdx.game.utils.Resources.TEXTURES.REC_TEXTURE;
 
 public class Player implements ICreature {
     private Body body;
@@ -82,7 +85,13 @@ public class Player implements ICreature {
 
         }
     }
-
+    public void render(Batch batch){
+        batch.draw(REC_TEXTURE,CAMERA_POS_X-150,CAMERA_POS_Y+200,32,32 );
+        if(this.powerUpQueue.peek()!=null){
+            Texture t=((CoinTemplate)this.powerUpQueue.peek()).getTexture();
+            batch.draw(t,CAMERA_POS_X-150,CAMERA_POS_Y+200,32,32);
+        }
+    }
     public void update(float delta ){
         if(this.powerUp!=null){
             if(this.powerUpTime>0){
@@ -120,7 +129,7 @@ public class Player implements ICreature {
 
         this.powerUp=this.powerUpQueue.poll();
         this.powerUpTime=this.powerUp.getTime();
-        POWERUP_SOUND.play();
+        POWERUP_SOUND.play(3f);
     }
     public void setScoreMult(int mult){
         this.scoreMult=mult;

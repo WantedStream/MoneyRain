@@ -2,6 +2,7 @@ package com.mygdx.game.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Resources {
@@ -18,6 +19,7 @@ public class Resources {
         public static Sound POWERUP_SOUND =Gdx.audio.newSound(Gdx.files.internal("sounds/powerup.mp3"));
         public static Sound NOPOWERUPS_SOUND =Gdx.audio.newSound(Gdx.files.internal("sounds/nopowerups.mp3"));
         public static Sound X2_SOUND =Gdx.audio.newSound(Gdx.files.internal("sounds/x2.mp3"));
+        public static Sound X3_SOUND =Gdx.audio.newSound(Gdx.files.internal("sounds/x3.mp3"));
 
     }
     public static class TEXTURES{
@@ -29,7 +31,18 @@ public class Resources {
         public static Texture CROWN_TEXTURE = new Texture(Gdx.files.internal("coins/crown.png"));
         public static Texture HEART_TEXTURE = new Texture(Gdx.files.internal("coins/heart.png"));
         public static Texture X2_TEXTURE = new Texture(Gdx.files.internal("coins/x2.png"));
+        public static Texture X3_TEXTURE = new Texture(Gdx.files.internal("coins/x3.png"));
 
+        public static Texture PLAYER_TEXTURE= new Texture(Gdx.files.internal("coins/clashofclans.png"));
+
+        public static Texture REC_TEXTURE = createRecTex();
+        public static Texture createRecTex(){
+            Pixmap pixmap = new Pixmap(30, 30, Pixmap.Format.RGBA8888);
+            pixmap.fillRectangle(0,0,pixmap.getWidth(), pixmap.getHeight());
+            Texture t = new Texture(pixmap);
+            pixmap.dispose();
+            return t;
+        }
     }
 
 }

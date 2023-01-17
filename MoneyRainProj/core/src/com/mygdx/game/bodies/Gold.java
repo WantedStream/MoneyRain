@@ -22,6 +22,7 @@ public class Gold extends CoinTemplate {
     private Body body;
     private float width;
     private float height;
+    private float speed;
     public Gold(World world, float x, float y, float w, float h){
         super(GOLD_TEXTURE);
         this.body=makeBody(x,y,world);
@@ -46,12 +47,17 @@ public class Gold extends CoinTemplate {
     @Override
     public void update(){
         super.defaultUpdate(this.body);
-        this.body.setLinearVelocity(0,-9.8f);
+        this.body.setLinearVelocity(0,this.speed);
     }
 
     @Override
     public void draw(Batch batch) {
        super.defaultCoinDrawer(batch,this.body,this.width,this.height);
+    }
+
+    @Override
+    public void setSpeed(float speed) {
+        this.speed=speed;
     }
 
     @Override
