@@ -84,7 +84,6 @@ public class Player implements ICreature {
     }
 
     public void update(float delta ){
-        System.out.println(this.health);
         if(this.powerUp!=null){
             if(this.powerUpTime>0){
                 this.powerUp.continuePowerEffect(this);
