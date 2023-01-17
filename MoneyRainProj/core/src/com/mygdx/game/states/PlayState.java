@@ -29,6 +29,7 @@ import java.util.*;
 
 import static com.mygdx.game.utils.Constants.PIXLE_PER_METER;
 import static com.mygdx.game.utils.Resources.SOUNDS.GAME_START;
+import static com.mygdx.game.utils.Resources.SOUNDS.POWERUP_SOUND;
 
 public class PlayState extends GameState{
 
@@ -46,7 +47,6 @@ public class PlayState extends GameState{
     private BitmapFont font12;
     private FreeTypeFontGenerator generator;
     private List<CoinTemplate> fallingMoney;
-    private String hudstr;
     private MoneyRain moneyRain;
     public Queue<CoinTemplate> getCoinQueue(){
         return this.moneyQueue;
@@ -77,7 +77,7 @@ public class PlayState extends GameState{
     }
     @Override
     public void update(float delta) {
-        player.update();
+        player.update(delta);
         world.step(1f/60,6,2);
         inputUpdate(delta);
        cameraUpdate(delta);
@@ -102,7 +102,7 @@ public class PlayState extends GameState{
         batch.end();
 
         orthogonalTiledMapRenderer.render();
-        box2DDebugRenderer.render(world,camera.combined.scl(PIXLE_PER_METER));
+        //box2DDebugRenderer.render(world,camera.combined.scl(PIXLE_PER_METER));
 
     }
     @Override
@@ -115,8 +115,10 @@ public class PlayState extends GameState{
     public void cameraUpdate(float delta){
         Vector3 position = camera.position;
 
-            position.x=camera.position.x+( player.getBody().getPosition().x*PIXLE_PER_METER-camera.position.x)*1f;
-            position.y= camera.position.y+( player.getBody().getPosition().y*PIXLE_PER_METER-camera.position.y)*1f;
+           // position.x=camera.position.x+( player.getBody().getPosition().x*PIXLE_PER_METER-camera.position.x)*1f;
+          //  position.y= camera.position.y+( player.getBody().getPosition().y*PIXLE_PER_METER-camera.position.y)*1f;
+        position.x=700;
+        position.y=400;
             camera.position.set(position);
 
 
@@ -132,18 +134,22 @@ public class PlayState extends GameState{
             horizontalForce +=1;
         }
 
-        player.getBody().setLinearVelocity(horizontalForce*50,0f);
+        player.getBody().setLinearVelocity(horizontalForce*10,0f);
 
-        if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
-           // player.doAttack();
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+           player.pollPowerUp();
         }
     }
 
     public void drawHud(){
+        String hudstr="score:"+player.getScore();
         font12.setColor(Color.GOLDENROD);
-        font12.draw(appplication.getBatch(),this.hudstr+player.getScore(),0,0 );
-        font12.setColor(Color.BLACK);
-        font12.draw(appplication.getBatch(),"press enter to try again!",0,this.hudstr.length()*-5 );
+        font12.draw(appplication.getBatch(),hudstr,550,600 );
+        font12.setColor(Color.CYAN);
+        font12.draw(appplication.getBatch(),player.getScoreMult(),790+hudstr.length()*2,600 );
+        font12.setColor(Color.RED);
+        font12.draw(appplication.getBatch(),"lifes:"+player.getHealth()/1,550,550 );
+
     }
 
     private void createFont(){
@@ -151,6 +157,5 @@ public class PlayState extends GameState{
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 50;
         font12 = generator.generateFont(parameter); // font size 12 pixels
-        this.hudstr ="results:";
     }
 }

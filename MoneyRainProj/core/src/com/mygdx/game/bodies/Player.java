@@ -4,11 +4,15 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.interfaces.CoinTemplate;
 import com.mygdx.game.interfaces.ICreature;
 import com.mygdx.game.interfaces.IPhysical;
+import com.mygdx.game.interfaces.PowerUp;
 import com.mygdx.game.managers.GameStateManager;
+import com.mygdx.game.utils.SunchronizedQueue;
 
 import java.util.Map;
 
 import static com.mygdx.game.utils.Constants.PIXLE_PER_METER;
+import static com.mygdx.game.utils.Resources.SOUNDS.NOPOWERUPS_SOUND;
+import static com.mygdx.game.utils.Resources.SOUNDS.POWERUP_SOUND;
 
 public class Player implements ICreature {
     private Body body;
@@ -18,6 +22,10 @@ public class Player implements ICreature {
     private GameStateManager gameStateManager;
      private World world;
      private int score;
+     private int scoreMult=1;
+     private SunchronizedQueue<PowerUp> powerUpQueue = new SunchronizedQueue<PowerUp>();
+     private PowerUp powerUp= null;
+     private float powerUpTime=0;
 
     public Player(World world, String id, float x, float y, GameStateManager gameStateManager){
         this.health=3;
@@ -55,6 +63,9 @@ public class Player implements ICreature {
         if(physical instanceof CoinTemplate){
             updateMoneyRes((CoinTemplate) physical);
         }
+        if(physical instanceof PowerUp){
+            addPowerUp((PowerUp)physical);
+        }
     }
 
     @Override
@@ -72,11 +83,23 @@ public class Player implements ICreature {
         }
     }
 
-    public void update(){
+    public void update(float delta ){
+        System.out.println(this.health);
+        if(this.powerUp!=null){
+            if(this.powerUpTime>0){
+                this.powerUp.continuePowerEffect(this);
+                this.powerUpTime-=delta;
+            }
+            else{
+                this.powerUp=null;
+                this.powerUpTime=0;
+                setScoreMult(1);
+            }
+        }
 
     }
     private void updateMoneyRes(CoinTemplate coin){
-        setScore(coin.getScore());
+        setScore(coin.getScore()*this.scoreMult);
         this.gameStateManager.updateResults(coin.getClass().getSimpleName());
 
     }
@@ -85,5 +108,30 @@ public class Player implements ICreature {
     }
     public int getScore() {
         return this.score;
+    }
+    private void addPowerUp(PowerUp p){
+        this.powerUpQueue.add(p);
+    }
+    public void pollPowerUp(){
+        if(this.powerUpQueue.isEmpty()){
+            NOPOWERUPS_SOUND.play();
+            return;
+        }
+
+
+        this.powerUp=this.powerUpQueue.poll();
+        this.powerUpTime=this.powerUp.getTime();
+        POWERUP_SOUND.play();
+    }
+    public void setScoreMult(int mult){
+        this.scoreMult=mult;
+    }
+    public String getScoreMult(){
+        if(this.scoreMult<=1)
+            return "";
+       return "X"+this.scoreMult;
+    }
+    public int getHealth(){
+        return (int)this.health;
     }
 }

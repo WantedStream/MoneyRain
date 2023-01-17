@@ -26,15 +26,28 @@ public class MoneyRain {
            this.moneyQueue.add((CoinTemplate) new Gold(this.world,0,50*y,1,1));
         this.moneyQueue.add((CoinTemplate) new Trash(this.world,0,50*y,1,1));
         this.moneyQueue.add((CoinTemplate) new Gold(this.world,0,50*y,1,1));
-        this.moneyQueue.add((CoinTemplate) new Trash(this.world,0,50*y,1,1));
+       this.moneyQueue.add((CoinTemplate) new Trash(this.world,0,50*y,1,1));
         this.moneyQueue.add((CoinTemplate) new Gold(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Diamond(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
+       this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Heart(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
+       this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
+       this.moneyQueue.add((CoinTemplate) new Cheese(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Crown(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Crown(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new MultByTwoPow(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new MultByTwoPow(this.world,0,50*y,1,1));
+
 
     }
     public void addCoinToWorld(){
         if(this.moneyQueue.isEmpty())return;
 
-        int rndnumX=new Random().nextInt(13,19);
-        int rndnumY=19;
+        int rndnumX=new Random().nextInt(13,28);
+        int rndnumY=40;
         CoinTemplate money = (CoinTemplate) this.moneyQueue.poll();
         money.getBody().setTransform(rndnumX,rndnumY,money.getBody().getAngle());
         this.fallingMoney.add(money);
