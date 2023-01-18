@@ -20,7 +20,7 @@ import static com.mygdx.game.utils.Constants.CAMERA_POS_Y;
 import static com.mygdx.game.utils.Resources.TEXTURES.REC_TEXTURE;
 
 public class MoneyRain {
-    private final static float time=2f;
+    private final static float time=1f;
     private float acc=time;
     private SunchronizedQueue<CoinTemplate> moneyQueue;
     private List<CoinTemplate> fallingMoney;
@@ -36,34 +36,40 @@ public class MoneyRain {
         //this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
 
          this.moneyQueue.add((CoinTemplate) new Gold(this.world,0,50*y,1,1));
-       // this.moneyQueue.add((CoinTemplate) new Gold(this.world,0,50*y,1,1));
-       /// this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
-       // this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
-        //this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
-       // this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
-       // this.moneyQueue.add((CoinTemplate) new Gold(this.world,0,50*y,1,1));
-       // this.moneyQueue.add((CoinTemplate) new Gold(this.world,0,50*y,1,1));
+       this.moneyQueue.add((CoinTemplate) new Gold(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Gold(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Gold(this.world,0,50*y,1,1));
         this.moneyQueue.add((CoinTemplate) new MultByThreePow(this.world,0,50*y,1,1));
-       // this.moneyQueue.add((CoinTemplate) new MultByThreePow(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new MultByThreePow(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Gold(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Gold(this.world,0,50*y,1,1));
 
-       // this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
-      //  this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
         this.moneyQueue.add((CoinTemplate) new Diamond(this.world,0,50*y,1,1));
-       // this.moneyQueue.add((CoinTemplate) new Diamond(this.world,0,50*y,1,1));
-       // this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
-       // this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
-      //  this.moneyQueue.add((CoinTemplate) new Gold(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Diamond(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Gold(this.world,0,50*y,1,1));
        this.moneyQueue.add((CoinTemplate) new Heart(this.world,0,50*y,1,1));
        this.moneyQueue.add((CoinTemplate) new Trash(this.world,0,50*y,1,1));
         this.moneyQueue.add((CoinTemplate) new Cheese(this.world,0,50*y,1,1));
        this.moneyQueue.add((CoinTemplate) new MultByTwoPow(this.world,0,50*y,1,1));
       this.moneyQueue.add((CoinTemplate) new Crown(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
 
-      //  this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
-       // this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
-       // this.moneyQueue.add((CoinTemplate) new MultByTwoPow(this.world,0,50*y,1,1));
+       this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new MultByTwoPow(this.world,0,50*y,1,1));
 
-       // this.moneyQueue.add((CoinTemplate) new MultByTwoPow(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new MultByTwoPow(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
+        this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
 
     }
     public void addCoinToWorld(){
@@ -73,7 +79,7 @@ public class MoneyRain {
         int rndnumY=40;
         CoinTemplate money = (CoinTemplate) this.moneyQueue.poll();
         money.getBody().setTransform(rndnumX,rndnumY,money.getBody().getAngle());
-        money.setSpeed(-15);
+        money.setSpeed(-20);
         this.fallingMoney.add(money);
     }
     public void iterCoins(){

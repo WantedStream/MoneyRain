@@ -24,7 +24,7 @@ public class Crown extends CoinTemplate {
         this.width=w*32/2/PIXLE_PER_METER;
         this.height=h*32/2/PIXLE_PER_METER;
         applyShape(this.body,this.width,this.height,1.0f,this);
-        this.score=10;
+        this.score=20;
     }
     @Override
     public short getScore() {
