@@ -1,10 +1,6 @@
 package com.mygdx.game.bodies;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.interfaces.CoinTemplate;
 import com.mygdx.game.states.GameState;
@@ -15,12 +11,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
 
-import static com.mygdx.game.utils.Constants.CAMERA_POS_X;
-import static com.mygdx.game.utils.Constants.CAMERA_POS_Y;
-import static com.mygdx.game.utils.Resources.TEXTURES.REC_TEXTURE;
-
 public class MoneyRain {
-    private final static float time=1f;
+    private final static float time=0.5f;
     private float acc=time;
     private SunchronizedQueue<CoinTemplate> moneyQueue;
     private List<CoinTemplate> fallingMoney;
@@ -55,7 +47,7 @@ public class MoneyRain {
         this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
         this.moneyQueue.add((CoinTemplate) new Penny(this.world,0,50*y,1,1));
         this.moneyQueue.add((CoinTemplate) new Gold(this.world,0,50*y,1,1));
-       this.moneyQueue.add((CoinTemplate) new Heart(this.world,0,50*y,1,1));
+       this.moneyQueue.add((CoinTemplate) new Life(this.world,0,50*y,1,1));
        this.moneyQueue.add((CoinTemplate) new Trash(this.world,0,50*y,1,1));
         this.moneyQueue.add((CoinTemplate) new Cheese(this.world,0,50*y,1,1));
        this.moneyQueue.add((CoinTemplate) new MultByTwoPow(this.world,0,50*y,1,1));

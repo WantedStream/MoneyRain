@@ -41,7 +41,7 @@ public class GameOverState extends GameState {
         parameter.size = 50;
         font12 = generator.generateFont(parameter); // font size 12 pixels
 
-        this.resultstr="results:";
+        this.resultstr="";
 
         for (Map.Entry<String, Integer> entry : gameStateManager.getResults().entrySet()) {
             String key = entry.getKey();
@@ -64,10 +64,12 @@ public class GameOverState extends GameState {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         this.app.getBatch().begin();
+        font12.setColor(Color.BLUE);
+        font12.draw(this.app.getBatch(),"results:",0,50 );
         font12.setColor(Color.GOLDENROD);
-        font12.draw(this.app.getBatch(),this.resultstr,0,0 );
+        font12.draw(this.app.getBatch(),this.resultstr,font12.getLineHeight(),50 );
         font12.setColor(Color.BLACK);
-        font12.draw(this.app.getBatch(),"press enter to try again!",0,-(this.resstrLineCount+1)*50);
+        font12.draw(this.app.getBatch(),"press enter to try again!",0,-(this.resstrLineCount)*48);
         this.app.getBatch().end();
     }
 

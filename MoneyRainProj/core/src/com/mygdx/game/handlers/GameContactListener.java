@@ -36,10 +36,6 @@ public class GameContactListener implements ContactListener {
 
     }
 
-    /*
-    private boolean  isTutorialContact(Fixture a, Fixture b) {
-        return (a.getUserData() instanceof TutorialBox && b.getUserData() instanceof TutorialBox);
-    }
-    */
+
 
 }

@@ -7,19 +7,17 @@ import com.mygdx.game.interfaces.CoinTemplate;
 import com.mygdx.game.interfaces.IPhysical;
 
 import static com.mygdx.game.utils.Constants.PIXLE_PER_METER;
-import static com.mygdx.game.utils.Resources.SOUNDS.CHEESE_SOUND;
 import static com.mygdx.game.utils.Resources.SOUNDS.HEART_SOUND;
-import static com.mygdx.game.utils.Resources.TEXTURES.CHEESE_TEXTURE;
 import static com.mygdx.game.utils.Resources.TEXTURES.HEART_TEXTURE;
 
-public class Heart extends CoinTemplate {
+public class Life extends CoinTemplate {
     private short score;
     private Body body;
     private float width;
     private float height;
     private float damage;
     private float speed;
-    public Heart(World world, float x, float y, float w, float h){
+    public Life(World world, float x, float y, float w, float h){
         super(HEART_TEXTURE);
         this.body=makeBody(x,y,world);
         this.width=w*32/2/PIXLE_PER_METER;
